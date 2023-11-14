@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "todo365"
+name = "ToDo365"
 version = "0.1.0"
 description = ""
 authors = ["Gabriel-Aguiar"]
