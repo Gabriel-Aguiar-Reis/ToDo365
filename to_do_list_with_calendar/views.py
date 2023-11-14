@@ -2,7 +2,7 @@ from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-import markdown2
+import markdown
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
@@ -27,7 +27,7 @@ class DocumentationView(APIView):
         with open(file_path, 'r') as file:
             markdown_content = file.read()
         
-        html_content = markdown2.markdown(markdown_content)
+        html_content = markdown.markdown(markdown_content)
         
         return Response({'documentation': html_content})
     
