@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
@@ -12,6 +13,14 @@ class IsAdmin(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return request.user.is_superuser
+
+
+class HealthCheckView(generics.ListAPIView):
+    """
+    Checa a saúde da API.
+    """ 
+    def get(self, request, *args, **kwargs):
+        return Response({"status": "ok"})
 
 
 class TarefaDetail(generics.RetrieveUpdateDestroyAPIView):
