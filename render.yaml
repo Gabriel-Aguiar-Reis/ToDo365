@@ -8,7 +8,7 @@ services:
     name: ToDo365
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn mysite.wsgi:application"
+    startCommand: "gunicorn Todo365.to_do_365.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
