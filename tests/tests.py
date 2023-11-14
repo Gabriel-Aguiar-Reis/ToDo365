@@ -2,5 +2,5 @@
 
 # from rest_framework.test import APITestCase
 
-def generic_test():
+def test_generic():
     assert 1 == 1
