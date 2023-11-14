@@ -1,6 +1,6 @@
 databases:
   - name: todo365
-    databaseName: Todo365
+    databaseName: todo365
     user: adminposte
 
 services:
