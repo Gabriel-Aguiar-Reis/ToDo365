@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (TarefaDetail, TarefaList, UsuarioCreate, UsuarioDetail,
+from .views import (TarefaDetail, TarefaList, UsuarioAdminCreate, UsuarioCreate, UsuarioDetail,
                     UsuarioDetailAdmin, UsuarioList)
 
 urlpatterns = [
@@ -8,6 +8,11 @@ urlpatterns = [
         'novo_usuario/',
         UsuarioCreate.as_view(),
         name='UsuarioCreate'
+    ),
+    path(
+        'novo_usuario_admin/',
+        UsuarioAdminCreate.as_view(),
+        name='UsuarioAdminCreate'
     ),
     path(
         'tarefas/',

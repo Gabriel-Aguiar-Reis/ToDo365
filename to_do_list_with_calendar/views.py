@@ -69,6 +69,18 @@ class UsuarioCreate(generics.CreateAPIView):
     queryset = Usuario.objects.all()
 
 
+class UsuarioAdminCreate(generics.CreateAPIView):
+    """
+    Criação de um novo usuário administrador.
+    """
+
+    serializer_class = UsuarioSerializer
+    queryset = Usuario.objects.all()
+
+    def perform_create(self, serializer):
+        return serializer.save(is_superuser=True)
+
+
 class UsuarioList(generics.ListAPIView):
     """
     Listagem de usuários (apenas para administradores).
