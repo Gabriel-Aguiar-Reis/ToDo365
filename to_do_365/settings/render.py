@@ -1,15 +1,27 @@
 from to_do_365.settings.base import *
-import dj_database_url
+# import dj_database_url
 
 DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = []
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://adminposte:hXkfuuJLwuuloHuMWxyDaLnSfEuZNqz0@dpg-cl9amfto7jlc73b0c78g-a/todo365',
-        conn_max_age=600
-    )
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://adminposte:hXkfuuJLwuuloHuMWxyDaLnSfEuZNqz0@dpg-cl9amfto7jlc73b0c78g-a/todo365',
+#         conn_max_age=600
+#     )
     
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Todo365',
+        'USER': 'adminposte',
+        'PASSWORD': 'hXkfuuJLwuuloHuMWxyDaLnSfEuZNqz0',
+        'HOST': 'dpg-cl9amfto7jlc73b0c78g-a',
+        'PORT': '5432',
+    }
 }
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
