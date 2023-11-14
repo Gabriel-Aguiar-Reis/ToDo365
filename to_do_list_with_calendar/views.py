@@ -1,6 +1,8 @@
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
+import markdown2
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
@@ -15,6 +17,20 @@ class IsAdmin(permissions.BasePermission):
         return request.user.is_superuser
 
 
+class DocumentationView(APIView):
+    """
+    Serve a documentação presente na pasta docs.
+    """
+    def get(self, request, *args, **kwargs):
+        file_path = 'docs/index.md'
+        
+        with open(file_path, 'r') as file:
+            markdown_content = file.read()
+        
+        html_content = markdown2.markdown(markdown_content)
+        
+        return Response({'documentation': html_content})
+    
 class HealthCheckView(generics.ListAPIView):
     """
     Checa a saúde da API.

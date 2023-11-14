@@ -58,6 +58,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MKDOCS_BUILD_DIR = 'docs'
+
 ROOT_URLCONF = 'to_do_365.urls'
 
 TEMPLATES = [

@@ -1,10 +1,15 @@
 from django.urls import path
 
-from .views import (HealthCheckView, TarefaDetail, TarefaList, 
-                    UsuarioAdminCreate, UsuarioCreate, UsuarioDetail, 
-                    UsuarioDetailAdmin, UsuarioList)
+from .views import (DocumentationView, HealthCheckView, TarefaDetail,
+                    TarefaList, UsuarioAdminCreate, UsuarioCreate,
+                    UsuarioDetail, UsuarioDetailAdmin, UsuarioList)
 
 urlpatterns = [
+    path(
+        'documentation/',
+        DocumentationView.as_view(),
+        name='Documentation'
+    ),
     path(
         'healthcheck/',
         HealthCheckView.as_view(),
