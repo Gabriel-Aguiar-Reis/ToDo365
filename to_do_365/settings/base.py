@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'to_do_365.wsgi.wsgi.application'
+WSGI_APPLICATION = 'to_do_365.wsgi.application'
 
 
 # Database
