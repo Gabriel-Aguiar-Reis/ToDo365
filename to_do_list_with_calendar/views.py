@@ -39,14 +39,22 @@ class DocumentationView(APIView):
             for style_tag in style_tags:
                 style_url = style_tag['href']
 
+                # Verifica se a URL é relativa e a completa
                 if not style_url.startswith(('http://', 'https://')):
                     style_url = f'{base_url}/{style_url.lstrip("/")}'
+                
+                try:
+                    style_response = requests.get(style_url)
+                    style_response.raise_for_status()
+                    style_content = style_response.text
+                except requests.RequestException:
+                    # Se falhar ao baixar da URL relativa, tenta baixar da CDN
+                    style_url = f'https://unpkg.com/{style_url}'
+                    style_response = requests.get(style_url)
+                    style_response.raise_for_status()
+                    style_content = style_response.text
 
-                style_response = requests.get(style_url)
-                style_response.raise_for_status()
-                style_content = style_response.text
                 style_tag.string = style_content
-
             rendered_content = str(soup)
             return HttpResponse(rendered_content)
         except requests.RequestException as e:
