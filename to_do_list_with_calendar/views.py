@@ -1,4 +1,3 @@
-from django.contrib.staticfiles import finder
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
