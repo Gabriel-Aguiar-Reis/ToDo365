@@ -1,13 +1,13 @@
+from bs4 import BeautifulSoup
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.http import HttpResponse
+import requests
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
-from django.http import HttpResponse
-from markdown import markdown
-import requests
 
 
 class IsAdmin(permissions.BasePermission):
@@ -19,6 +19,7 @@ class IsAdmin(permissions.BasePermission):
         return request.user.is_superuser
 
 
+
 class DocumentationView(APIView):
     """
     Clona a documentação presente no Github Pages.
@@ -28,11 +29,12 @@ class DocumentationView(APIView):
         try:
             response = requests.get(github_pages_url)
             response.raise_for_status()
-            mkdocs_content = response.text
-            rendered_content = markdown(mkdocs_content)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            rendered_content = str(soup)
             return HttpResponse(rendered_content)
         except requests.RequestException as e:
             return HttpResponse(f'Erro ao obter a documentação: {str(e)}', status=500)
+
 
 
 class HealthCheckView(generics.ListAPIView):
