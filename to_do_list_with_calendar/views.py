@@ -1,6 +1,3 @@
-import requests
-from bs4 import BeautifulSoup
-from django.http import Http404, HttpResponse
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -17,33 +14,6 @@ class IsAdmin(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return request.user.is_superuser
-
-
-class DocumentationView(APIView):
-    """
-    Clona a documentação presente no Github Pages.
-    """
-    
-    def extract_data():
-        url = 'https://Gabriel-Aguiar-Reis.github.io/ToDo365'
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-            content = soup.find('p', class_='conteudo').get_text()
-            return content
-        else:
-            return None
-    
-    def get(self, request, format=None):
-        data = extract_data()
-
-        if data is not None:
-            return Response({'data': data}, status=status.HTTP_200_OK)
-        else:
-            return Response(
-                {'error': 'Falha ao obter dados do GitHub Pages'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class HealthCheckView(generics.ListAPIView):
