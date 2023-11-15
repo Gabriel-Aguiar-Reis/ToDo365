@@ -23,48 +23,27 @@ class DocumentationView(APIView):
     """
     Clona a documentação presente no Github Pages.
     """
+    
+    def extract_data():
+        url = 'https://Gabriel-Aguiar-Reis.github.io/ToDo365'
+        response = requests.get(url)
 
-    def get(self, request, *args, **kwargs):
-        github_pages_url = 'https://Gabriel-Aguiar-Reis.github.io/ToDo365'
-        try:
-            response = requests.get(github_pages_url)
-            response.raise_for_status()
-
+        if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
+            content = soup.find('p', class_='conteudo').get_text()
+            return content
+        else:
+            return None
+    
+    def get(self, request, format=None):
+        data = extract_data()
 
-            base_url = response.url.rstrip('/')
-
-            style_tags = soup.find_all('link', rel='stylesheet')
-
-            for style_tag in style_tags:
-                style_url = style_tag['href']
-                
-                if not style_url.startswith(('http://', 'https://')):
-                    style_url = f'{base_url}/{style_url.lstrip("/")}'
-                
-                try:
-                    style_response = requests.get(style_url)
-                    
-                    style_response.raise_for_status()
-                    
-                    style_content = style_response.text
-                
-                except requests.RequestException:
-                    style_url = f'https://unpkg.com/mermaid@8.5.1/dist/{style_url.lstrip("/")}'
-                    
-                    style_response = requests.get(style_url)
-                    
-                    style_response.raise_for_status()
-                    
-                    style_content = style_response.text
-
-                style_tag.string = style_content
-            rendered_content = str(soup)
-            return HttpResponse(rendered_content)
-        except requests.RequestException as e:
-            return HttpResponse(
-                f'Erro ao obter a documentação: {str(e)}', status=500
-            )
+        if data is not None:
+            return Response({'data': data}, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                {'error': 'Falha ao obter dados do GitHub Pages'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class HealthCheckView(generics.ListAPIView):
