@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -33,13 +33,27 @@ class DocumentationView(APIView):
 
             soup = BeautifulSoup(response.text, 'html.parser')
 
+            base_url = response.url
+
             style_tags = soup.find_all('link', rel='stylesheet')
 
             for style_tag in style_tags:
                 style_url = style_tag['href']
+                if not style_url.startswith(('http://', 'https://')):
+                    style_url = f"""{
+                        base_url.rstrip("/")
+                    }
+                    /
+                    {
+                        style_url.lstrip("/")
+                    }
+                    """
                 style_response = requests.get(style_url)
+
                 style_response.raise_for_status()
+
                 style_content = style_response.text
+
                 style_tag.string = style_content
 
             rendered_content = str(soup)
@@ -47,7 +61,7 @@ class DocumentationView(APIView):
             return HttpResponse(rendered_content)
         except requests.RequestException as e:
             return HttpResponse(
-                f'Erro ao obter a documentação: {str(e)}', status=500
+                f"""Erro ao obter a documentação: {str(e)}""", status=500
             )
 
 
