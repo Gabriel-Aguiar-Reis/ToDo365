@@ -5,8 +5,9 @@ from rest_framework.views import APIView
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
-
-# import markdown
+from django.http import HttpResponse
+from markdown import markdown
+import requests
 
 
 class IsAdmin(permissions.BasePermission):
@@ -20,16 +21,18 @@ class IsAdmin(permissions.BasePermission):
 
 class DocumentationView(APIView):
     """
-    Serve a documentação presente na pasta docs.
+    Clona a documentação presente no Github Pages.
     """
-
-    def get(self, request, format=None):
-        markdown_path = os.path.join(settings.BASE_DIR, 'docs', 'index.md')
-
-        with open(markdown_path, 'r') as file:
-            markdown_content = file.read()
-
-        return Response({'markdown_content': markdown_content})
+    def get(self, request, *args, **kwargs):
+        github_pages_url = 'https://Gabriel-Aguiar-Reis.github.io/ToDo365'
+        try:
+            response = requests.get(github_pages_url)
+            response.raise_for_status()
+            mkdocs_content = response.text
+            rendered_content = markdown(mkdocs_content)
+            return HttpResponse(rendered_content)
+        except requests.RequestException as e:
+            return HttpResponse(f'Erro ao obter a documentação: {str(e)}', status=500)
 
 
 class HealthCheckView(generics.ListAPIView):

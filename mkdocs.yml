@@ -1,5 +1,5 @@
 site_name: ToDo365 API Docs
-site_url: 'https://www.todo365.onrender.com/api/documentation/'
+site_url: 'https://www.todo365.onrender.com/documentation/'
 theme:
   name: material
   palette:
