@@ -23,46 +23,33 @@ class DocumentationView(APIView):
     """
     Clona a documentação presente no Github Pages.
     """
-
     def get(self, request, *args, **kwargs):
         github_pages_url = 'https://Gabriel-Aguiar-Reis.github.io/ToDo365'
         try:
             response = requests.get(github_pages_url)
-
             response.raise_for_status()
 
             soup = BeautifulSoup(response.text, 'html.parser')
 
-            base_url = response.url
+            base_url = response.url.rstrip("/")
 
             style_tags = soup.find_all('link', rel='stylesheet')
 
             for style_tag in style_tags:
                 style_url = style_tag['href']
+
                 if not style_url.startswith(('http://', 'https://')):
-                    style_url = f"""{
-                        base_url.rstrip("/")
-                    }
-                    /
-                    {
-                        style_url.lstrip("/")
-                    }
-                    """
+                    style_url = f'{base_url}/{style_url.lstrip("/")}'
+                
                 style_response = requests.get(style_url)
-
                 style_response.raise_for_status()
-
                 style_content = style_response.text
-
                 style_tag.string = style_content
 
             rendered_content = str(soup)
-
             return HttpResponse(rendered_content)
         except requests.RequestException as e:
-            return HttpResponse(
-                f"""Erro ao obter a documentação: {str(e)}""", status=500
-            )
+            return HttpResponse(f'Erro ao obter a documentação: {str(e)}', status=500)
 
 
 class HealthCheckView(generics.ListAPIView):
