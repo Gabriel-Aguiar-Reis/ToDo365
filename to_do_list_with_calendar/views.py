@@ -1,11 +1,13 @@
+from django.contrib.staticfiles import finder
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-import markdown
 
 from .models import Tarefa, Usuario
 from .serializers import TarefaSerializer, UsuarioSerializer
+
+# import markdown
 
 
 class IsAdmin(permissions.BasePermission):
@@ -21,22 +23,23 @@ class DocumentationView(APIView):
     """
     Serve a documentação presente na pasta docs.
     """
-    def get(self, request, *args, **kwargs):
-        file_path = 'docs/index.md'
-        
-        with open(file_path, 'r') as file:
+
+    def get(self, request, format=None):
+        markdown_path = os.path.join(settings.BASE_DIR, 'docs', 'index.md')
+
+        with open(markdown_path, 'r') as file:
             markdown_content = file.read()
-        
-        html_content = markdown.markdown(markdown_content)
-        
-        return Response({'documentation': html_content})
-    
+
+        return Response({'markdown_content': markdown_content})
+
+
 class HealthCheckView(generics.ListAPIView):
     """
     Checa a saúde da API.
-    """ 
+    """
+
     def get(self, request, *args, **kwargs):
-        return Response({"status": "ok"})
+        return Response({'status': 'ok'})
 
 
 class TarefaDetail(generics.RetrieveUpdateDestroyAPIView):

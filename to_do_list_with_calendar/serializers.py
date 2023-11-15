@@ -39,7 +39,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'email',
             'tarefas',
             'validado',
-            'is_superuser'
+            'is_superuser',
         ]
 
     def create(self, validated_data):

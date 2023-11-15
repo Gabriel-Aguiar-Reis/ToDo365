@@ -1,5 +1,6 @@
-from to_do_365.settings.base import *
 import dj_database_url
+
+from to_do_365.settings.base import *
 
 DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = []
@@ -8,7 +9,6 @@ DATABASES = {
     'default': dj_database_url.config(
         default='postgres://adminposte:hXkfuuJLwuuloHuMWxyDaLnSfEuZNqz0@dpg-cl9amfto7jlc73b0c78g-a/todo365',
     )
-    
 }
 
 
@@ -26,7 +26,7 @@ DATABASES = {
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
