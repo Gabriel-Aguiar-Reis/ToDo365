@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(to_do_urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('documentation/', Documentation.as_view(), name='documentation')
+    path('documentation/', DocumentationView.as_view(), name='documentation')
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
