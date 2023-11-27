@@ -9,6 +9,7 @@ from .views import (
     UsuarioDetail,
     UsuarioDetailAdmin,
     UsuarioList,
+    VerifyEmail,
 )
 
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
         name='UsuarioDetailAdmin',
     ),
     path('usuarios/', UsuarioList.as_view(), name='UsuarioList'),
+    path('verify_email/', VerifyEmail.as_view(), name='VerifyEmail'),
 ]
