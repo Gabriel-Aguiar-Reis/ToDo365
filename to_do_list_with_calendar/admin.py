@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import Tarefa, Usuario
+from .models import Task, User
 
-admin.site.register([Usuario, Tarefa])
+admin.site.register([User, Task])

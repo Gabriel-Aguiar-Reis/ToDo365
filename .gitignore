@@ -46,6 +46,10 @@ MANIFEST
 *.manifest
 *.spec
 
+# Ignore Django migration files
+to_do_list_with_calendar/migrations/*.py
+to_do_list_with_calendar/migrations/*.pyc
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt

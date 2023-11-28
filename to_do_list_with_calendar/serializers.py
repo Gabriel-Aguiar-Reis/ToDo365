@@ -3,32 +3,34 @@ from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import Tarefa
+from .models import Task
 
 
-class TarefaSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     """
-    Serializador para a classe Tarefa.
+    Serializer for the Task class.
     """
 
     class Meta:
-        model = Tarefa
+        model = Task
         fields = '__all__'
 
-    def validate_data_horario(self, value):
+    def validate_datetime(self, value):
         """
-        Validação personalizada para o campo data_horario.
+        Custom validation for the datetime field.
         """
         if value < timezone.now():
-            raise serializers.ValidationError('Data ou Horário inválidos.')
+            raise serializers.ValidationError('Invalid date or time.')
         return value
 
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     """
-    Serializador para a classe Usuario.
+    Serializer for the User class.
     """
 
+    tasks = TaskSerializer(many=True, read_only=True)
+    
     class Meta:
         model = get_user_model()
         fields = [
@@ -36,16 +38,15 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'username',
             'password',
             'email',
-            'tarefas',
-            'validado',
+            'tasks',
+            'validated',
             'is_superuser',
         ]
 
     def create(self, validated_data):
         """
-        Criação correta de um novo usuário encriptando senha na serialização.
+        Correct creation of a new user encrypting password in serialization.
         """
         validated_data['password'] = make_password(validated_data['password'])
-        return super(UsuarioSerializer, self).create(validated_data)
+        return super(UserSerializer, self).create(validated_data)
 
-    tarefas = TarefaSerializer(many=True, read_only=True)
