@@ -44,9 +44,7 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Task.objects.all()
-        elif User.objects.filter(
-            username=self.request.user.username
-        ).exists():
+        elif User.objects.filter(username=self.request.user.username).exists():
             return Task.objects.filter(User=self.request.user)
         else:
             Task.objects.none()
@@ -63,9 +61,7 @@ class TaskList(generics.ListCreateAPIView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Task.objects.all()
-        elif User.objects.filter(
-            username=self.request.user.username
-        ).exists():
+        elif User.objects.filter(username=self.request.user.username).exists():
             return Task.objects.filter(User=self.request.user)
         else:
             Task.objects.none()

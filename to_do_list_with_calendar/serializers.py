@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     tasks = TaskSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = get_user_model()
         fields = [
@@ -49,4 +49,3 @@ class UserSerializer(serializers.ModelSerializer):
         """
         validated_data['password'] = make_password(validated_data['password'])
         return super(UserSerializer, self).create(validated_data)
-

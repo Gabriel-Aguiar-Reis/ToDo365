@@ -29,8 +29,10 @@ class User(AbstractUser):
     """
     Template to represent a custom user with additional fields.
     """
+
     class Meta:
         db_table = 'auth_user'
+
     user_email = models.EmailField(blank=False)
     validated = models.BooleanField(default=False)
 
