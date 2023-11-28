@@ -47,8 +47,9 @@ MANIFEST
 *.spec
 
 # Ignore Django migration files
-**/migrations/*.py
-**/migrations/*.pyc
+
+*/migrations/*.py
+*/migrations/*.pyc
 
 # Installer logs
 pip-log.txt
@@ -73,7 +74,9 @@ cover/
 *.mo
 
 # Django stuff:
-
+wsgi.py
+asgi.py
+manage.py
 # Flask stuff:
 instance/
 .webassets-cache

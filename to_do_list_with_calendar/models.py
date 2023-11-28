@@ -3,41 +3,41 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Tarefa(models.Model):
+class Task(models.Model):
     """
-    Modelo para representar uma tarefa.
+    Template to represent a task.
     """
 
-    titulo = models.CharField(max_length=255)
-    descricao = models.CharField(max_length=255)
-    data_horario = models.DateTimeField()
-    usuario = models.ForeignKey(
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    datetime = models.DateTimeField()
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='tarefas',
+        related_name='tasks',
         on_delete=models.CASCADE,
         blank=True,
     )
 
     def __str__(self):
         """
-        Retorna a representação em string da tarefa.
+        Returns the sting representation of the task.
         """
-        return f'{self.titulo} <{self.usuario}>'
+        return f'{self.title} <{self.user}>'
 
 
-class Usuario(AbstractUser):
+class User(AbstractUser):
     """
-    Modelo para representar um usuário costumizado com campos adicionais.
+    Template to represent a custom user with additional fields.
     """
 
     class Meta:
         db_table = 'auth_user'
 
-    email = models.EmailField(blank=False)
-    validado = models.BooleanField(default=False)
+    user_email = models.EmailField(blank=False)
+    validated = models.BooleanField(default=False)
 
     def __str__(self):
         """
-        Retorna a representação em string do usuário.
+        Returns the string representation of the user.
         """
         return self.get_full_name()
