@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'allauth',
     'allauth.account',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-]
+    'corsheaders.middleware.CorsMiddleware',
+
 
 MKDOCS_BUILD_DIR = 'docs'
 
@@ -155,3 +157,4 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = True
+CORS_ALLOW_ALL_ORIGINS = True

@@ -47,6 +47,7 @@ MANIFEST
 *.spec
 
 # Ignore Django migration files
+
 */migrations/*.py
 */migrations/*.pyc
 
