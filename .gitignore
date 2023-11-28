@@ -47,8 +47,8 @@ MANIFEST
 *.spec
 
 # Ignore Django migration files
-to_do_list_with_calendar/migrations/*.py
-to_do_list_with_calendar/migrations/*.pyc
+*/migrations/*.py
+*/migrations/*.pyc
 
 # Installer logs
 pip-log.txt
