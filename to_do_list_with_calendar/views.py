@@ -104,7 +104,7 @@ class BaseUserCreate(generics.CreateAPIView):
 
         current_site = get_current_site(self.request).domain
         relative_link = reverse('VerifyEmailToken')
-        absurl = 'http://' + current_site + relative_link + '?token=' + token
+        absurl = 'https://' + current_site + relative_link + '?token=' + token
         email_body = (
             'Hi, '
             + user.username
