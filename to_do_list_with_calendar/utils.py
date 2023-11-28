@@ -3,8 +3,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from to_do_365.settings.base import EMAIL_HOST, EMAIL_PORT
-
 
 class Util:
     @staticmethod
@@ -30,4 +28,4 @@ class Util:
                 server.login(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
                 server.sendmail(EMAIL_HOST_USER, to_email, msg.as_string())
         except smtplib.SMTPAuthenticationError as e:
-            print(f'Erro de autenticação SMTP: {e}')
+            print(f'Authentication error SMTP: {e}')

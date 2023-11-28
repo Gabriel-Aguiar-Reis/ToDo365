@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'to_do_list_with_calendar.Usuario'
+AUTH_USER_MODEL = 'to_do_list_with_calendar.User'
 
 
 # Application definition
@@ -124,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-BR'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
