@@ -1,6 +1,6 @@
 databases:
   - name: ToDo365
-    databaseName: ToDo365
+    databaseName: todo365_pqpt
     user: todo365_pqpt_user
 
 services:
