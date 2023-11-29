@@ -83,7 +83,7 @@ class BaseUserCreate(generics.CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer, is_superuser):
         user_data = serializer.validated_data
         email = user_data.get('email')
 
@@ -92,7 +92,7 @@ class BaseUserCreate(generics.CreateAPIView):
                 'An user with this email already exists.'
             )
 
-        user = serializer.save()
+        user = serializer.save(is_superuser=is_superuser)
 
         user_model = get_user_model()
         refresh = RefreshToken.for_user(user_model.objects.get(email=email))
