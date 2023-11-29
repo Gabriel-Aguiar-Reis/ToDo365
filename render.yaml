@@ -1,7 +1,7 @@
 databases:
-  - name: ToDo365
-    databaseName: ToDo365
-    user: todo365_pqpt_user
+  - name: todo365database
+    databaseName: todo365database
+    user: todo365databaseuser
 
 services:
   - type: web
