@@ -2,7 +2,8 @@ import dj_database_url
 
 from to_do_365.settings.base import *
 
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
+# DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
