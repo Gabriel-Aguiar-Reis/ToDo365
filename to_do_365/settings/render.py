@@ -8,7 +8,7 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://todo365_pqpt_user:9k7AScAvN29ZGBJsBYyO7Rgk7tIMd6KL@dpg-clj7ks700qrs73dvqlcg-a/todo365_pqpt',
+        default='postgres://todo365databaseuser:ie02qmCYPEunZrsSUrYsqO2mQmT7rpFT@dpg-cljbfq700qrs73e089pg-a/todo365database',
     )
 }
 
