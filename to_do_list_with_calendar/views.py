@@ -26,7 +26,7 @@ class IsAdmin(permissions.BasePermission):
 
 class HealthCheckView(generics.ListAPIView):
     """
-    Checks the health of the API.
+    Checks the API's health.
     """
 
     def get(self, request, *args, **kwargs):
@@ -157,7 +157,7 @@ class UserDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
 
 class UserDetail(generics.RetrieveUpdateAPIView):
     """
-    Breakdown of the user himself.
+    Breakdown of user's himself.
     """
 
     serializer_class = UserSerializer

@@ -29,3 +29,5 @@ class Util:
                 server.sendmail(EMAIL_HOST_USER, to_email, msg.as_string())
         except smtplib.SMTPAuthenticationError as e:
             print(f'Authentication error SMTP: {e}')
+
+    
