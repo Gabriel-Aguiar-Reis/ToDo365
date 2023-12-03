@@ -1,20 +1,31 @@
-site_name: ToDo365 API Docs
-site_url: 'https://www.todo365.onrender.com/documentation/'
+site_name: ToDo365 Docs
+site_url: 'https://gabriel-aguiar-reis.github.io/ToDo365/'
+repo_url: 'https://github.com/gabriel-aguiar-reis/ToDo365/'
+repo_name: gabriel-aguiar-reis/ToDo365
+edit_uri: edit/main/docs/
 theme:
+  features:
+    - navigation.sections
+  favicon: images/favicon.png
+  icon:
+    logo: material/library
+    repo: fontawesome/brands/github
   name: material
   palette:
     - scheme: default
-      primary: purple
+      primary: grey
       toggle:
         icon: material/weather-night
         name: Modo Noturno
     - scheme: slate
-      primary: deep purple
+      primary: blue grey
       toggle:
         icon: material/weather-sunny
         name: Modo Claro
 
-
+plugins:
+    - search
+    - mermaid2
 markdown_extensions:
   - pymdownx.emoji
   - pymdownx.tasklist
@@ -25,12 +36,4 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_div_format
-
-
-extra_css:
-  - https://unpkg.com/mermaid@8.5.1/dist/mermaid.css
-
-
-extra_javascript:
-  - https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js
+          format: !!python/name:mermaid2.fence_mermaid_custom
